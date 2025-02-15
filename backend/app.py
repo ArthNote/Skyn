@@ -4,10 +4,8 @@ import numpy as np
 import pandas as pd
 from PIL import Image
 import tensorflow as tf
-from tensorflow.keras.models import load_model
-from tensorflow.keras.preprocessing import image
-from tensorflow.keras.preprocessing.image import load_img
-from tensorflow.keras.preprocessing.image import img_to_array
+from tensorflow.python.keras.models import load_model, save_model
+from keras.preprocessing import image
 from models.skin_tone.skin_tone_knn import identify_skin_tone
 from flask import Flask, request
 from flask_restful import Api, Resource, reqparse, abort
@@ -27,9 +25,9 @@ skin_tone_dataset = 'models/skin_tone/skin_tone_dataset.csv'
 
 def get_model():
     global model1, model2
-    model1 = load_model('./models/skin_model')
+    model1 = tf.saved_model.load('./models/skin_model')
     print('Model 1 loaded')
-    model2 = load_model('./models/acne_model')
+    model2 = tf.saved_model.load('./models/acne_model')
     print("Model 2 loaded!")
 
 
